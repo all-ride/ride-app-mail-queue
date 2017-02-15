@@ -1,0 +1,16 @@
+{
+    "name": "ride/app-mail-queue",
+    "description": "Use a queue to send mails in a Ride application.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Joris Vandeweerd",
+            "email": "joris@statik.be"
+        }
+    ],
+    "require": {
+        "ride/app": "^1.0.0",
+        "ride/lib-mail": "^1.0.0",
+        "ride/lib-queue": "^1.0.0"
+    }
+}

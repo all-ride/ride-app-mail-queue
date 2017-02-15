@@ -1,0 +1,9 @@
+{
+    "dependencies": [
+        {
+            "interfaces": "ride\\library\\mail\\transport\\Transport",
+            "class": "ride\\application\\mail\\transport\\QueueMailTransport",
+            "id": "queue"
+        }
+    ]
+}
