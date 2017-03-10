@@ -51,7 +51,6 @@ class QueueMailTransport implements Transport {
      */
     public function send(MailMessage $message) {
         $queueJob = new MailQueueJob();
-        $queueJob->setMailTransport($this->mailTransport);
         $queueJob->setMailMessage($message);
 
         $this->queueDispatcher->queue($queueJob);
