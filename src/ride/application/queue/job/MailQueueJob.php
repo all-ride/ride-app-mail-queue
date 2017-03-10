@@ -2,7 +2,6 @@
 
 namespace ride\application\queue\job;
 
-use ride\library\mail\transport\Transport;
 use ride\library\mail\MailMessage;
 use ride\library\queue\job\AbstractQueueJob;
 use ride\library\queue\QueueManager;
@@ -13,25 +12,10 @@ use ride\library\queue\QueueManager;
 class MailQueueJob extends AbstractQueueJob {
 
     /**
-     * Instance of the mail transport
-     * @var \ride\library\mail\transport\Transport
-     */
-    private $transport;
-
-    /**
      * Instance of the message to send
      * @var \ride\library\mail\MailMessage
      */
     private $message;
-
-    /**
-     * Sets the mail transport
-     * @param \ride\library\mail\transport\Transport $transport
-     * @return null
-     */
-    public function setMailTransport(Transport $transport) {
-        $this->transport = $transport;
-    }
 
     /**
      * Sets the mail message
@@ -49,9 +33,22 @@ class MailQueueJob extends AbstractQueueJob {
      * invoked again or null when the job is done
      */
     public function run(QueueManager $queueManager) {
-        if ($this->transport && $this->message) {
-            $this->transport->send($this->message);
+        if (!$this->message) {
+            return;
         }
+
+        $dependencyInjector = $queueManager->getSystem()->getDependencyInjector();
+        $id = null;
+        $arguments = null;
+        $invokeCalls = false;
+        $exclude = array(
+            'ride\\application\\mail\\transport\\QueueMailTransport' => array(
+                'queue' => true
+            ),
+        );
+
+        $transport = $dependencyInjector->get('ride\\library\\mail\\transport\\Transport', $id, $arguments, $invokeCalls, $exclude);
+        $transport->send($this->message);
     }
 
 }
