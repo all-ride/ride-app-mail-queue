@@ -12,5 +12,11 @@
         "ride/app": "^1.0.0",
         "ride/lib-mail": "^1.0.0",
         "ride/lib-queue": "^1.0.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "ride\\application\\mail\\transport\\QueueMailTransport": ["src/"],
+            "ride\\application\\queue\\job\\MailQueueJob": ["src/"]
+        }
     }
 }
