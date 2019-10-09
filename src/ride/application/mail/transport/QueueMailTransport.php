@@ -34,6 +34,12 @@ class QueueMailTransport implements Transport {
     private $retryTime = 300;
 
     /**
+     * Maximum number of retries which will be attempted
+     * @var integer
+     */
+    private $maxRetries = 5;
+
+    /**
      * Constructs a new queue mail transport
      * @param \ride\library\queue\dispatcher\QueueDispatcher $queueDispatcher
      * @param \ride\library\mail\transport\Transport $mailTransport
@@ -73,6 +79,26 @@ class QueueMailTransport implements Transport {
     }
 
     /**
+     * Sets the maximum number of schedules
+     * @param integer $maxSchedules Number of schedules
+     */
+    public function setMaxRetries($maxRetries) {
+        if (!is_numeric($maxRetries) || $maxRetries < 0) {
+            throw new QueueException('Could not set the maxRetries: provided value should be a number greater then 0');
+        }
+
+        $this->maxRetries = $maxRetries;
+    }
+
+    /**
+     * Gets the maximum number of retries which will be attempted
+     * @return integer
+     */
+    public function getMaxRetries() {
+        return $this->maxRetries;
+    }
+
+    /**
      * Delivers a mail message
      * @param \ride\library\mail\MailMessage $message
      * @return null
@@ -81,6 +107,7 @@ class QueueMailTransport implements Transport {
         $queueJob = new MailQueueJob();
         $queueJob->setMailMessage($message);
         $queueJob->setRetryTime($this->retryTime);
+        $queueJob->setMaxSchedules($this->maxRetries);
 
         $this->queueDispatcher->queue($queueJob);
     }

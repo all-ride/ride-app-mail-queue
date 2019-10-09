@@ -1,3 +1,4 @@
 {
-   "mail.queue.retry": 300
+   "mail.queue.retry.time": 300,
+   "mail.queue.retry.max": 5
 }
