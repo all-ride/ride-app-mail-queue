@@ -12,7 +12,19 @@
                             "name": "retryTime",
                             "type": "parameter",
                             "properties": {
-                                "key": "mail.queue.retry"
+                                "key": "mail.queue.retry.time"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "method": "setMaxRetries",
+                    "arguments": [
+                        {
+                            "name": "maxRetries",
+                            "type": "parameter",
+                            "properties": {
+                                "key": "mail.queue.retry.max"
                             }
                         }
                     ]

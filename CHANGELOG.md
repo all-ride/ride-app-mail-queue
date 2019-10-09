@@ -1,3 +1,7 @@
+## [1.2.0] - 2019-10-09
+### Added
+- implemented max retries
+
 ## [1.1.0] - 2019-10-09
 ### Added
 - implemented retry for failed mail jobs
