@@ -3,7 +3,21 @@
         {
             "interfaces": "ride\\library\\mail\\transport\\Transport",
             "class": "ride\\application\\mail\\transport\\QueueMailTransport",
-            "id": "queue"
+            "id": "queue",
+            "calls": [
+                {
+                    "method": "setRetryTime",
+                    "arguments": [
+                        {
+                            "name": "retryTime",
+                            "type": "parameter",
+                            "properties": {
+                                "key": "mail.queue.retry"
+                            }
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }
